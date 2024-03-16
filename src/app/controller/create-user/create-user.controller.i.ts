@@ -1,9 +1,10 @@
 import { IsEmail, IsISO8601, IsOptional, IsString } from 'class-validator';
 import { IStatus } from '../../../app/utils/constant/constant';
 
-export interface StatusResponse {
+export interface CreateUserRes {
   code?: IStatus;
   message?: string;
+  email?: string;
 }
 
 export class CreateUserReq {

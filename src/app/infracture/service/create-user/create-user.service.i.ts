@@ -1,11 +1,9 @@
-export enum Status{
-  FAIL = "failure",
-  SUCCESS = "success"
-}
+import { IStatus } from "src/app/utils/constant/constant";
 
 export interface ICreateResult {
-  status: Status;
   userId?: number;
+  email?: string;
+  status: IStatus;
 }
 
 export interface ICreateUser {

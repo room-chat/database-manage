@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ChatLogger } from '../../../../app/utils/logger/logger';
-import { ICreateUser, ICreateResult, Status } from './create-user.service.i';
+import { ICreateUser, ICreateResult } from './create-user.service.i';
 
 import * as path from 'path';
 import { ClientService } from '../client/client';
+import { IStatus } from '../../../../app/utils/constant/constant';
 
 @Injectable()
 export class CreateUserService {
@@ -23,17 +24,20 @@ export class CreateUserService {
       param.lastName,
       param.address,
       param.city,
-      param.dayofBirth,
-      param.createdAt,
+      param.dayofBirth
     ];
 
     try {
       const data = await this.client.queryByFile$(path, placeHolder);
 
-      return data ? { status: Status.SUCCESS} : { status: Status.FAIL };
+      return {
+        status: IStatus.SUCCESS,
+        email: data
+      }
     } catch (e) {
       const resultFailure: ICreateResult = {
-        status: Status.FAIL,
+        status: IStatus.FAILURE,
+        email: param.email
       };
 
       this.logger.log('Create user failure', param);
